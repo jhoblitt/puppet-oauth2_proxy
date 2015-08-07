@@ -1,5 +1,5 @@
 Puppet oauth2_proxy Module
-=========================
+==========================
 
 [![Build Status](https://travis-ci.org/jhoblitt/puppet-oauth2_proxy.png)](https://travis-ci.org/jhoblitt/puppet-oauth2_proxy)
 
@@ -19,6 +19,8 @@ Puppet oauth2_proxy Module
 Overview
 --------
 
+manages the oauth2_proxy reverse proxy with oauth authentication
+
 
 Description
 -----------
@@ -33,6 +35,7 @@ Limitations
 
 ### Tested Platforms
 
+* el7
 
 Versioning
 ----------
@@ -70,3 +73,5 @@ Contributing
 
 See Also
 --------
+
+* [oauth2_proxy](https://github.com/bitly/oauth2_proxy)

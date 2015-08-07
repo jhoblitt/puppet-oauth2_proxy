@@ -1,22 +1,19 @@
 {
   "name": "jhoblitt-oauth2_proxy",
   "version": "0.1.0",
-  "author": "Joshua Hoblitt <jhoblitt@cpan.org>",
-  "summary": "module skeleton",
+  "author": "Joshua Hoblitt <josh@hoblitt.com>",
+  "summary": "manages the oauth2_proxy reverse proxy with oauth authentication",
   "license": "Apache-2.0",
   "source": "https://github.com/jhoblitt/puppet-oauth2_proxy.git",
   "project_page": "https://github.com/jhoblitt/puppet-oauth2_proxy",
   "issues_url": "https://github.com/jhoblitt/puppet-oauth2_proxy/issues",
   "operatingsystem_support": [
-    { "operatingsystem": "RedHat", "operatingsystemrelease": [ "5", "6", "7" ] },
-    { "operatingsystem": "CentOS", "operatingsystemrelease": [ "5", "6", "7" ] },
-    { "operatingsystem": "OracleLinux", "operatingsystemrelease": [ "5", "6", "7" ] },
-    { "operatingsystem": "Scientific", "operatingsystemrelease": [ "5", "6", "7" ] },
-    { "operatingsystem": "SLES", "operatingsystemrelease": [ "10 SP4", "11 SP1", "12" ] },
-    { "operatingsystem": "Debian", "operatingsystemrelease": [ "6", "7" ] },
-    { "operatingsystem": "Ubuntu", "operatingsystemrelease": [ "10.04", "12.04", "14.04" ] }
+    { "operatingsystem": "RedHat", "operatingsystemrelease": [ "7" ] },
+    { "operatingsystem": "CentOS", "operatingsystemrelease": [ "7" ] },
+    { "operatingsystem": "Scientific", "operatingsystemrelease": [ "7" ] }
   ],
   "dependencies": [
-    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.6.0 < 5.0.0" }
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.6.0 < 5.0.0" },
+    { "name": "camptocamp/archive", "version_requirement": ">= 0.8.0" }
   ]
 }
