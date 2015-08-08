@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe 'oauth2_proxy', :type => :class do
-  let(:facts) {{ :osfamily => 'RedHat' }}
-
   describe 'for osfamily RedHat' do
+    let(:facts) {{ :osfamily => 'RedHat', :architecture => 'x86_64' }}
+
     context 'parameters' do
       context 'user =>' do
         context '(unset)' do
@@ -199,6 +199,17 @@ describe 'oauth2_proxy', :type => :class do
       end # config =>
 
     end # parameters
+
+    describe 'on architecture x86' do
+      let(:facts) {{ :osfamily => 'RedHat', :architecture => 'x86' }}
+      let(:params) {{ :config => {} }}
+      it { should compile.and_raise_error(/is not supported on architecture/) }
+    end
   end # for osfamily RedHat
 
+  describe 'for osfamily Debian' do
+    let(:facts) {{ :osfamily => 'foo', :operatingsystem => 'bar' }}
+    let(:params) {{ :config => {} }}
+    it { should compile.and_raise_error(/is not supported on operatingsystem/) }
+  end
 end
