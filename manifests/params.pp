@@ -15,11 +15,18 @@ class oauth2_proxy::params {
   # in theory, this module should work on any linux distro that uses systemd
   # but it has only been tested on el7
   case $::osfamily {
-    'RedHat': { }
+    'RedHat': {}
     default: {
-      fail("Module ${module_name} is not supported on ${::operatingsystem}")
+      fail("Module ${module_name} is not supported on operatingsystem ${::operatingsystem}")
+    }
+  }
+
+  # bit.ly does not provide x86 builds
+  case $::architecture {
+    'x86_64': {}
+    default: {
+      fail("Module ${module_name} is not supported on architecture ${::architecture}")
     }
   }
 
 }
-
