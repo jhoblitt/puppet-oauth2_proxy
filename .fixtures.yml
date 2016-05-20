@@ -4,6 +4,6 @@ fixtures:
       repo: 'https://github.com/puppetlabs/puppetlabs-stdlib.git'
       ref:  '4.6.0'
     archive:
-      repo: 'https://github.com/camptocamp/puppet-archive.git'
+      repo: 'https://github.com/voxpupuli/puppet-archive.git'
   symlinks:
     oauth2_proxy: "#{source_dir}"

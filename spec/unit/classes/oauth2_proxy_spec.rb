@@ -159,7 +159,7 @@ describe 'oauth2_proxy', :type => :class do
       context 'config =>' do
         context '(unset)' do
           it 'is mandatory' do
-            should compile.and_raise_error(/Must pass config/)
+            should compile.and_raise_error(/config/)
           end
         end
 
