@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'oauth2_proxy class' do
+describe 'oauth2_proxy class', :order => :defined do
   describe 'running puppet code' do
     pp = <<-EOS
       class { '::oauth2_proxy':
