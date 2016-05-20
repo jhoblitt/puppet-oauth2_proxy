@@ -14,6 +14,6 @@
   ],
   "dependencies": [
     { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.6.0 < 5.0.0" },
-    { "name": "camptocamp/archive", "version_requirement": ">= 0.8.0" }
+    { "name": "puppet/archive", "version_requirement": ">= 0.5.1 < 1.0.0" }
   ]
 }
