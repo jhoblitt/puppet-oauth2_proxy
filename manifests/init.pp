@@ -34,12 +34,12 @@ class oauth2_proxy(
   }
 
   anchor { '::oauth2_proxy::begin': } ->
-    class { '::oauth2_proxy::install': } ->
+    class { '::oauth2_proxy::install': } ~>
       class { '::oauth2_proxy::config': } ->
         anchor { '::oauth2_proxy::end': }
 
   if $manage_service {
-    Class['::oauth2_proxy::config'] ->
+    Class['::oauth2_proxy::config'] ~>
       class { '::oauth2_proxy::service': } ->
         Anchor['::oauth2_proxy::end']
   }
