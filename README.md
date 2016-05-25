@@ -7,21 +7,21 @@ Puppet oauth2_proxy Module
 
 1. [Overview](#overview)
 2. [Description](#description)
-3  [Major API Changes](#major-api-changes)
-3. [Usage](#usage)
+3. [Major API Changes](#major-api-changes)
+4. [Usage](#usage)
     * [Examples](#examples)
     * [Classes](#classes)
         * [`oauth2_proxy`](#oauth2_proxy)
     * [Defines](#defines)
         * [`oauth2_proxy::instance`](#oauth2_proxyinstance)
-4. [Limitations](#limitations)
+5. [Limitations](#limitations)
     * [Tested Platforms](#tested-platforms)
     * [Puppet Version Compatibility](#puppet-version-compatibility)
     * [systemd](#systemd)
-5. [Versioning](#versioning)
-6. [Support](#support)
-7. [Contributing](#contributing)
-8. [See Also](#see-also)
+6. [Versioning](#versioning)
+7. [Support](#support)
+8. [Contributing](#contributing)
+9. [See Also](#see-also)
 
 
 Overview
