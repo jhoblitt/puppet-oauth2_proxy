@@ -35,4 +35,19 @@ class oauth2_proxy::install {
     group  => $::oauth2_proxy::group,
     target => "${::oauth2_proxy::install_root}/${base}",
   }
+
+  file { '/etc/oauth2_proxy':
+    ensure => directory,
+    owner  => $::oauth2_proxy::user,
+    group  => $::oauth2_proxy::group,
+    mode   => '0755',
+  }
+
+  file { '/usr/lib/systemd/system/oauth2_proxy@.service':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template("${module_name}/oauth2_proxy@.service.erb"),
+  }
 }

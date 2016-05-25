@@ -7,13 +7,6 @@ class oauth2_proxy::config {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  file { '/etc/oauth2_proxy':
-    ensure => directory,
-    owner  => $::oauth2_proxy::user,
-    group  => $::oauth2_proxy::group,
-    mode   => '0755',
-  }
-
   file { '/etc/oauth2_proxy/oauth2_proxy.conf':
     ensure  => file,
     owner   => $::oauth2_proxy::user,
