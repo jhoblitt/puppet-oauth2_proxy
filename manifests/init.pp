@@ -6,12 +6,16 @@ class oauth2_proxy(
   $group        = $::oauth2_proxy::params::group,
   $manage_group = $::oauth2_proxy::params::manage_group,
   $install_root = $::oauth2_proxy::params::install_root,
+  $source       = $::oauth2_proxy::params::source,
+  $checksum     = $::oauth2_proxy::params::checksum,
 ) inherits oauth2_proxy::params {
   validate_string($user)
   validate_bool($manage_user)
   validate_string($group)
   validate_bool($manage_group)
   validate_absolute_path($install_root)
+  validate_string($source)
+  validate_string($checksum)
 
   if $manage_user {
     user { $user:

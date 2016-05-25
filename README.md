@@ -79,6 +79,29 @@ include ::oauth2_proxy
 }
 ```
 
+```puppet
+class { '::oauth2_proxy':
+  source   => 'https://github.com/bitly/oauth2_proxy/releases/download/v2.0.1/oauth2_proxy-2.0.1.linux-amd64.go1.4.2.tar.gz',
+  checksum => '950e08d52c04104f0539e6945fc42052b30c8d1b',
+}
+
+::oauth2_proxy::instance { 'proxy1':
+  config => {
+    http_address      => '127.0.0.1:4180',
+    client_id         => '1234',
+    client_secret     => 'abcd',
+    github_org        => 'foo',
+    upstreams         => [ 'http://127.0.0.1:3000' ],
+    cookie_secret     => '1234',
+    pass_access_token => false,
+    pass_host_header  => true,
+    provider          => 'github',
+    redirect_url      => 'https://foo.example.org/oauth2/callback',
+    email_domains     => [ '*' ],
+  }
+}
+```
+
 ### Classes
 
 #### `oauth2_proxy`
@@ -91,6 +114,8 @@ class { '::oauth2_proxy':
   group        => 'oauth2',
   manage_group => true,
   install_root => '/opt/oauth2_proxy',
+  source       => 'https://github.com/bitly/oauth2_proxy/releases/download/v2.0.1/oauth2_proxy-2.0.1.linux-amd64.go1.4.2.tar.gz',
+  checksum     => '950e08d52c04104f0539e6945fc42052b30c8d1b',
 }
 ```
 
@@ -125,6 +150,19 @@ Weather or not this module should manage the group of the system role account.
 `String` defaults to: `/opt/oauth2_proxy`
 
 The dirname under which to install the proxy files.
+
+##### `source`
+
+`String` defaults to: `<a long url>`
+
+The URL from which to download the `oauth2_proxy` binary.  The file is assumed
+to be in `tar.gz` format.
+
+##### `checksum`
+
+`String` defaults to: `<a sha1 checksum>`
+
+The sha1 format checksum of the `source` file.
 
 ### Defines
 

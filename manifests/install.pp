@@ -7,17 +7,16 @@ class oauth2_proxy::install {
     fail("Use of private class ${name} by ${caller_module_name}")
   }
 
-  $version = '2.0.1'
-  $base = "oauth2_proxy-${version}.linux-amd64.go1.4.2"
-  $tarball = "${base}.tar.gz"
+  $tarball = regsubst($::oauth2_proxy::source, '^.*/([^/]+)$', '\1')
+  $base    = regsubst($tarball, '(\w+).tar.gz$', '\1')
 
   archive { $tarball:
     ensure        => present,
-    source        => "https://github.com/bitly/oauth2_proxy/releases/download/v${version}/${tarball}",
+    source        => $::oauth2_proxy::source,
     path          => "${::oauth2_proxy::install_root}/${tarball}",
     extract       => true,
     extract_path  => $::oauth2_proxy::install_root,
-    checksum      => '950e08d52c04104f0539e6945fc42052b30c8d1b',
+    checksum      => $::oauth2_proxy::checksum,
     checksum_type => 'sha1',
     user          => $::oauth2_proxy::user,
   }

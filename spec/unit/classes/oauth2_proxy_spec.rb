@@ -121,6 +121,72 @@ describe 'oauth2_proxy', :type => :class do
           end
         end
       end # install_root =>
+
+      context 'source =>' do
+        context '(unset)' do
+          it do
+            should contain_archive('oauth2_proxy-2.0.1.linux-amd64.go1.4.2.tar.gz').with(
+              :ensure        => :present,
+              :source        => 'https://github.com/bitly/oauth2_proxy/releases/download/v2.0.1/oauth2_proxy-2.0.1.linux-amd64.go1.4.2.tar.gz',
+              :path          => '/opt/oauth2_proxy/oauth2_proxy-2.0.1.linux-amd64.go1.4.2.tar.gz',
+              :extract       => true,
+              :extract_path  => '/opt/oauth2_proxy',
+              :checksum_type => 'sha1',
+              :user          => 'oauth2'
+            )
+          end
+        end
+
+        context 'https://example.org/foo.tar.gz' do
+          let(:params) {{ :source => 'https://example.org/foo.tar.gz' }}
+
+          it do
+            should contain_archive('foo.tar.gz').with(
+              :ensure        => :present,
+              :source        => 'https://example.org/foo.tar.gz',
+              :path          => '/opt/oauth2_proxy/foo.tar.gz',
+              :extract       => true,
+              :extract_path  => '/opt/oauth2_proxy',
+              :checksum_type => 'sha1',
+              :user          => 'oauth2'
+            )
+          end
+        end
+
+        context 'foo' do
+          let(:params) {{ :source => [] }}
+          it 'should fail' do
+            should raise_error(Puppet::Error, /is not a string/)
+          end
+        end
+      end # source =>
+
+      context 'checksum =>' do
+        context '(unset)' do
+          it do
+            should contain_archive('oauth2_proxy-2.0.1.linux-amd64.go1.4.2.tar.gz').with(
+              :checksum => '950e08d52c04104f0539e6945fc42052b30c8d1b',
+            )
+          end
+        end
+
+        context 'asdf' do
+          let(:params) {{ :checksum => 'asdf' }}
+
+          it do
+            should contain_archive('oauth2_proxy-2.0.1.linux-amd64.go1.4.2.tar.gz').with(
+              :checksum => 'asdf',
+            )
+          end
+        end
+
+        context 'foo' do
+          let(:params) {{ :checksum => [] }}
+          it 'should fail' do
+            should raise_error(Puppet::Error, /is not a string/)
+          end
+        end
+      end # checksum =>
     end # parameters
 
     describe 'systemd service' do
