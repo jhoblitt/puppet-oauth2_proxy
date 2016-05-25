@@ -1,4 +1,4 @@
-<%- scope['::oauth2_proxy::config'].sort_by {|k,v| k.to_s}.each do |k,v| -%>
+<%- @config.sort_by {|k,v| k.to_s}.each do |k,v| -%>
     <%- if v.is_a?(TrueClass) or v.is_a?(FalseClass) -%>
 <%= k %> = <%= v %>
     <%- elsif v.is_a?(Array) -%>
