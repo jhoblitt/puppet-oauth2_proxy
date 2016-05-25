@@ -15,7 +15,7 @@ matrix:
       sudo: required
       services: docker
       env: BEAKER_set="centos-7-docker"
-      script: bundle exec rake acceptance
+      script: bundle exec rake beaker
       bundler_args: --without development
   exclude:
     - rvm: 2.2
