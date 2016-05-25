@@ -200,6 +200,29 @@ describe 'oauth2_proxy', :type => :class do
 
     end # parameters
 
+    describe 'systemd service' do
+      examples = {
+        "User=foo\n"                      => { 'user'         => 'foo' },
+        "Group=bar\n"                     => { 'group'        => 'bar' },
+        "ExecStart=/dne/bin/oauth2_proxy" => { 'install_root' => '/dne' },
+      }
+
+      examples.each do |output, config|
+        context config do
+          let(:params) { config }
+
+          it do
+            should contain_file('/usr/lib/systemd/system/oauth2_proxy@.service').with(
+              :ensure => 'file',
+              :owner  => 'root',
+              :group  => 'root',
+              :mode   => '0644'
+            ).with_content(/#{output}/)
+          end
+        end
+      end
+    end # systemd service
+
     describe 'on architecture x86' do
       let(:facts) {{ :osfamily => 'RedHat', :architecture => 'x86' }}
       let(:params) {{ :config => {} }}
