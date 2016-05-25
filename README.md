@@ -7,12 +7,17 @@ Puppet oauth2_proxy Module
 
 1. [Overview](#overview)
 2. [Description](#description)
+3  [Major API Changes](#major-api-changes)
 3. [Usage](#usage)
     * [Examples](#examples)
     * [Classes](#classes)
         * [`oauth2_proxy`](#oauth2_proxy)
+    * [Defines](#defines)
+        * [`oauth2_proxy::instance`](#oauth2_proxyinstance)
 4. [Limitations](#limitations)
     * [Tested Platforms](#tested-platforms)
+    * [Puppet Version Compatibility](#puppet-version-compatibility)
+    * [systemd](#systemd)
 5. [Versioning](#versioning)
 6. [Support](#support)
 7. [Contributing](#contributing)
@@ -35,13 +40,29 @@ minimal systemd service unit.
 Log messages [from stdout & stderr] are sent to the systemd journal.  This may
 be undesirable with moderate to high volumes of traffic.
 
+
+Major API Changes
+-----------------
+
+* Version 1.x
+
+**Represents a significant and backwards incompatible API change.**
+
+Previously, the only public interface was through the
+[`oauth2_proxy`](#oauth2_proxy) classs and a single proxy instance was managed.
+As of `1.x`, multiple proxy instances are supported via the
+[`oauth2_proxy::instance`](#oauth2_proxyinstance) defined type.
+
+
 Usage
 -----
 
 ### Examples
 
 ```puppet
-class { '::oauth2_proxy':
+include ::oauth2_proxy
+
+::oauth2_proxy::instance { 'proxy1':
   config => {
     http_address      => '127.0.0.1:4180',
     client_id         => '1234',
@@ -65,13 +86,11 @@ class { '::oauth2_proxy':
 ```puppet
 # defaults
 class { '::oauth2_proxy':
-  user           => 'oauth2',
-  manage_user    => true,
-  group          => 'oauth2',
-  manage_group   => true,
-  install_root   => '/opt/oauth2_proxy',
-  manage_service => true,
-  config         => { ... }, # mandatory
+  user         => 'oauth2',
+  manage_user  => true,
+  group        => 'oauth2',
+  manage_group => true,
+  install_root => '/opt/oauth2_proxy',
 }
 ```
 
@@ -107,12 +126,24 @@ Weather or not this module should manage the group of the system role account.
 
 The dirname under which to install the proxy files.
 
+### Defines
+
+#### `oauth2_proxy::instance`
+
+```puppet
+# defaults
+::oauth2_proxy::instance { 'proxy1':
+  config         => { ... }, # mandatory
+  manage_service => true,
+}
+```
+
 ##### `config`
 
 `Hash` mandatory
 
 A list of key/value pairs to be serialized into a configuration file @
-`/etc/oauth2_proxy/oauth2_proxy.conf`.  No validation of this hash is done
+`/etc/oauth2_proxy/< title >.conf`.  No validation of this hash is done
 beyond checking the parameter type.
 
 The configuration file parameters are similar to the CLI options but have some
@@ -124,6 +155,13 @@ itself.
 *Please note that oauth2_proxy does have several mandatory parameters and will
 fail to start-up if they are not present.*
 
+##### `manage_service`
+
+`Boolean` defaults to: `true`
+
+Whether or not to manage a service resource for the proxy instance.
+
+
 Limitations
 -----------
 
@@ -131,11 +169,19 @@ Limitations
 
 * el7
 
+### Puppet Version Compatibility
+
+Versions | Puppet 2.7 | Puppet 3.x | Puppet 4.x
+:--------|:----------:|:----------:|:----------:
+**0.x**  | unknown    | **yes**    | **yes**
+**1.x**  | unknown    | **yes**    | **yes**
+
 ### systemd
 
 This module should in theory be able to function on any `x86_64` Linux
 distribution that uses systemd for service management.  However, since this has
 not been tested the module is limited to el7/`x86_64`.
+
 
 Versioning
 ----------

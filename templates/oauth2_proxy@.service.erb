@@ -4,7 +4,7 @@ Description=OAuth2 Proxy
 [Service]
 User=<%= scope['::oauth2_proxy::user'] %>
 Group=<%= scope['::oauth2_proxy::group'] %>
-ExecStart=/opt/oauth2_proxy/bin/oauth2_proxy --config=/etc/oauth2_proxy/oauth2_proxy.conf
+ExecStart=<%= scope['::oauth2_proxy::install_root'] %>/bin/oauth2_proxy --config=/etc/oauth2_proxy/%i.conf
 
 [Install]
 WantedBy=multi-user.target
