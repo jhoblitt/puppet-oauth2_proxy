@@ -1,6 +1,6 @@
 {
   "name": "jhoblitt-oauth2_proxy",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "Joshua Hoblitt <josh@hoblitt.com>",
   "summary": "manages the oauth2_proxy reverse proxy with oauth authentication",
   "license": "Apache-2.0",
