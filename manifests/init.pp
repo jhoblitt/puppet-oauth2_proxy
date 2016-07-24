@@ -17,12 +17,17 @@ class oauth2_proxy(
   validate_string($source)
   validate_string($checksum)
 
+  $shell = $::osfamily ? {
+    'Redhat' => '/sbin/nologin',
+    'Debian' => '/bin/false',
+  }
+
   if $manage_user {
     user { $user:
       gid    => $group,
       system => true,
       home   => '/',
-      shell  => '/sbin/nologin',
+      shell  => $shell,
     }
   }
 

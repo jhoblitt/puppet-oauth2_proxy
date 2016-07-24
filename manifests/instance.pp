@@ -20,6 +20,7 @@ define oauth2_proxy::instance(
       ensure    => 'running',
       enable    => true,
       subscribe => File["/etc/oauth2_proxy/${title}.conf"],
+      provider  => systemd,
     }
   }
 }
