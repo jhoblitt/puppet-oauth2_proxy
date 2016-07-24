@@ -42,6 +42,13 @@ class oauth2_proxy::install {
     mode   => '0755',
   }
 
+  # on debian system the systemd system directory is not guaranteed to exist
+  if $::osfamily == 'Debian' {
+    exec { '/bin/mkdir -p /usr/lib/systemd/system':
+      creates => '/usr/lib/systemd/sysem'
+    }
+  }
+
   file { '/usr/lib/systemd/system/oauth2_proxy@.service':
     ensure  => file,
     owner   => 'root',
