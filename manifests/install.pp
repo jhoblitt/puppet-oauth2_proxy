@@ -45,7 +45,7 @@ class oauth2_proxy::install {
   # on debian system the systemd system directory is not guaranteed to exist
   if $::osfamily == 'Debian' {
     exec { '/bin/mkdir -p /usr/lib/systemd/system':
-      creates => '/usr/lib/systemd/sysem'
+      creates => '/usr/lib/systemd/system'
     }
   }
 
