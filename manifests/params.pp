@@ -30,6 +30,7 @@ class oauth2_proxy::params {
   # bit.ly does not provide x86 builds
   case $::architecture {
     'x86_64': {}
+    'amd64': {}
     default: {
       fail("Module ${module_name} is not supported on architecture ${::architecture}")
     }
