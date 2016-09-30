@@ -20,8 +20,14 @@ class oauth2_proxy::params {
   # in theory, this module should work on any linux distro that uses systemd
   # but it has only been tested on el7
   case $::osfamily {
-    'RedHat': { $systemd_path = '/usr/lib/systemd/system' }
-    'Debian': { $systemd_path = '/etc/systemd/system' }
+    'RedHat': {
+      $systemd_path = '/usr/lib/systemd/system'
+      $user_shell = '/sbin/nologin'
+    }
+    'Debian': {
+      $systemd_path = '/etc/systemd/system'
+      $user_shell = '/usr/sbin/nologin'
+    }
     default: {
       fail("Module ${module_name} is not supported on operatingsystem ${::operatingsystem}")
     }

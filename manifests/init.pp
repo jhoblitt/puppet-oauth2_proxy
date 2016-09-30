@@ -9,6 +9,7 @@ class oauth2_proxy(
   $source       = $::oauth2_proxy::params::source,
   $checksum     = $::oauth2_proxy::params::checksum,
   $systemd_path = $::oauth2_proxy::params::systemd_path,
+  $user_shell   = $::oauth2_proxy::params::user_shell,
 ) inherits oauth2_proxy::params {
   validate_string($user)
   validate_bool($manage_user)
@@ -18,13 +19,14 @@ class oauth2_proxy(
   validate_string($source)
   validate_string($checksum)
   validate_absolute_path($systemd_path)
+  validate_absolute_path($user_shell)
 
   if $manage_user {
     user { $user:
       gid    => $group,
       system => true,
       home   => '/',
-      shell  => '/sbin/nologin',
+      shell  => $user_shell,
     }
   }
 
