@@ -10,6 +10,7 @@ class oauth2_proxy::install {
   $tarball = regsubst($::oauth2_proxy::source, '^.*/([^/]+)$', '\1')
   $base    = regsubst($tarball, '(\w+).tar.gz$', '\1')
 
+  include ::archive
   archive { $tarball:
     ensure        => present,
     source        => $::oauth2_proxy::source,
