@@ -4,7 +4,7 @@
     <%- elsif v.is_a?(Array) -%>
 <%= k %> = [
         <%- v.each do |e| -%>
-  "<%= e %>"
+  "<%= e %>",
         <%- end -%>
 ]
     <%- else -%>
