@@ -8,6 +8,7 @@ class oauth2_proxy(
   $install_root = $::oauth2_proxy::params::install_root,
   $source       = $::oauth2_proxy::params::source,
   $checksum     = $::oauth2_proxy::params::checksum,
+  $provider     = $::oauth2_proxy::params::provider,
 ) inherits oauth2_proxy::params {
   validate_string($user)
   validate_bool($manage_user)

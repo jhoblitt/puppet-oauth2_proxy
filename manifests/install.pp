@@ -39,7 +39,7 @@ class oauth2_proxy::install {
     ensure => directory,
     owner  => $::oauth2_proxy::user,
     group  => $::oauth2_proxy::group,
-    mode   => '0755',
+    mode   => '0644',
   }
 
   # on debian system the systemd system directory is not guaranteed to exist
@@ -47,13 +47,25 @@ class oauth2_proxy::install {
     exec { '/bin/mkdir -p /usr/lib/systemd/system':
       creates => '/usr/lib/systemd/system'
     }
+
+    file { '/var/log/oauth2_proxy/':
+      ensure => directory,
+      owner  => $::oauth2_proxy::user,
+      group  => $::oauth2_proxy::group,
+      mode   => '0644'
+    }
   }
 
-  file { '/usr/lib/systemd/system/oauth2_proxy@.service':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template("${module_name}/oauth2_proxy@.service.erb"),
+  case $::oauth2_proxy::provider {
+    'systemd': {
+      file { '/usr/lib/systemd/system/oauth2_proxy@.service':
+        ensure  => file,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template("${module_name}/oauth2_proxy@.service.erb"),
+      }
+    }
+    default: {}
   }
 }
