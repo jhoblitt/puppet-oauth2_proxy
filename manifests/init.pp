@@ -10,6 +10,7 @@ class oauth2_proxy(
   $checksum     = $::oauth2_proxy::params::checksum,
   $systemd_path = $::oauth2_proxy::params::systemd_path,
   $user_shell   = $::oauth2_proxy::params::user_shell,
+  $provider     = $::oauth2_proxy::params::provider,
 ) inherits oauth2_proxy::params {
   validate_string($user)
   validate_bool($manage_user)

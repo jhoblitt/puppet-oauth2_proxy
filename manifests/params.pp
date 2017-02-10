@@ -11,6 +11,7 @@ class oauth2_proxy::params {
   $install_root     = '/opt/oauth2_proxy'
   $service_template = 'oauth2_proxy.service.erb'
   $manage_service   = true
+  $provider         = 'systemd'
 
   $version  = '2.1'
   $tarball  = "oauth2_proxy-${version}.linux-amd64.go1.6.tar.gz"
