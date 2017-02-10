@@ -12,16 +12,22 @@ class oauth2_proxy::params {
   $service_template = 'oauth2_proxy.service.erb'
   $manage_service   = true
 
-  $version  = '2.0.1'
-  $tarball  = "oauth2_proxy-${version}.linux-amd64.go1.4.2.tar.gz"
+  $version  = '2.1'
+  $tarball  = "oauth2_proxy-${version}.linux-amd64.go1.6.tar.gz"
   $source   = "https://github.com/bitly/oauth2_proxy/releases/download/v${version}/${tarball}"
-  $checksum = '950e08d52c04104f0539e6945fc42052b30c8d1b'
+  $checksum = '7a74b361f9edda0400d02602eacd70596d85b453'
 
   # in theory, this module should work on any linux distro that uses systemd
   # but it has only been tested on el7
   case $::osfamily {
-    'RedHat': {}
-    'Debian': {}
+    'RedHat': {
+      $systemd_path = '/usr/lib/systemd/system'
+      $user_shell = '/sbin/nologin'
+    }
+    'Debian': {
+      $systemd_path = '/etc/systemd/system'
+      $user_shell = '/usr/sbin/nologin'
+    }
     default: {
       fail("Module ${module_name} is not supported on operatingsystem ${::operatingsystem}")
     }
@@ -35,5 +41,4 @@ class oauth2_proxy::params {
       fail("Module ${module_name} is not supported on architecture ${::architecture}")
     }
   }
-
 }
