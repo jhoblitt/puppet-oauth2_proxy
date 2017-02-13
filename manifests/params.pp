@@ -23,11 +23,11 @@ class oauth2_proxy::params {
   case $::osfamily {
     'RedHat': {
       $systemd_path = '/usr/lib/systemd/system'
-      $user_shell = '/sbin/nologin'
+      $shell = '/sbin/nologin'
     }
     'Debian': {
       $systemd_path = '/etc/systemd/system'
-      $user_shell = '/usr/sbin/nologin'
+      $shell = '/usr/sbin/nologin'
     }
     default: {
       fail("Module ${module_name} is not supported on operatingsystem ${::operatingsystem}")

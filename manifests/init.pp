@@ -9,7 +9,7 @@ class oauth2_proxy(
   $source       = $::oauth2_proxy::params::source,
   $checksum     = $::oauth2_proxy::params::checksum,
   $systemd_path = $::oauth2_proxy::params::systemd_path,
-  $user_shell   = $::oauth2_proxy::params::user_shell,
+  $shell   = $::oauth2_proxy::params::shell,
   $provider     = $::oauth2_proxy::params::provider,
 ) inherits oauth2_proxy::params {
   validate_string($user)
@@ -20,9 +20,9 @@ class oauth2_proxy(
   validate_string($source)
   validate_string($checksum)
   validate_absolute_path($systemd_path)
-  validate_absolute_path($user_shell)
+  validate_absolute_path($shell)
 
-  $user_shell = $::osfamily ? {
+  $shell = $::osfamily ? {
     'Redhat' => '/sbin/nologin',
     'Debian' => '/bin/false',
   }
@@ -32,7 +32,7 @@ class oauth2_proxy(
       gid    => $group,
       system => true,
       home   => '/',
-      shell  => $user_shell,
+      shell  => $shell,
     }
   }
 
