@@ -206,6 +206,7 @@ Limitations
 ### Tested Platforms
 
 * el7
+* ubuntu 14.04
 
 ### Puppet Version Compatibility
 

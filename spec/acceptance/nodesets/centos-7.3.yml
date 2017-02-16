@@ -1,9 +1,9 @@
 HOSTS:
-  centos-7.0:
+  centos-7.3:
     roles:
       - master
     platform: el-7-x86_64
-    box: bento/centos-7.0
+    box: bento/centos-7.3
     hypervisor: vagrant
 CONFIG:
   type: foss

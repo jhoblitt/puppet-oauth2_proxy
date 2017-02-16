@@ -102,7 +102,7 @@ http_address = "127.0.0.1:4182"
 
 
   %w[ proxy1 proxy2 ].each do | name |
-    describe service("oauth2_proxy@#{name}") do
+    describe service("oauth2_proxy-#{name}") do
       it { should be_enabled }
       it { should be_running }
     end
