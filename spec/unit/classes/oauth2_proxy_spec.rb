@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'oauth2_proxy', :type => :class do
   describe 'for osfamily RedHat' do
-    let(:facts) {{ :osfamily => 'RedHat', :architecture => 'x86_64' }}
+    let(:facts) {{ :osfamily => 'RedHat', :architecture => 'x86_64', :os => { :family => 'RedHat' } }}
 
     context 'parameters' do
       context 'user =>' do
@@ -213,13 +213,13 @@ describe 'oauth2_proxy', :type => :class do
     end # systemd service
 
     describe 'on architecture x86' do
-      let(:facts) {{ :osfamily => 'RedHat', :architecture => 'x86' }}
+      let(:facts) {{ :osfamily => 'RedHat', :architecture => 'x86', :os => { :family => 'RedHat' }  }}
       it { should compile.and_raise_error(/is not supported on architecture/) }
     end
   end # for osfamily RedHat
 
   describe 'for osfamily Debian' do
-    let(:facts) {{ :osfamily => 'Debian', :architecture => 'amd64' }}
+    let(:facts) {{ :osfamily => 'Debian', :architecture => 'amd64', :os => { :family => 'Debian' }  }}
 
     context 'parameters' do
       context 'user =>' do
@@ -430,13 +430,13 @@ describe 'oauth2_proxy', :type => :class do
     end # systemd service
 
     describe 'on architecture x86' do
-      let(:facts) {{ :osfamily => 'Debian', :architecture => 'x86' }}
+      let(:facts) {{ :osfamily => 'Debian', :architecture => 'x86', :os => { :family => 'Debian' } }}
       it { should compile.and_raise_error(/is not supported on architecture/) }
     end
   end # for osfamily Debian
 
   describe 'for osfamily foo' do
-    let(:facts) {{ :osfamily => 'foo', :operatingsystem => 'bar' }}
+    let(:facts) {{ :osfamily => 'foo', :operatingsystem => 'bar', :os => { :family => 'Debian' } }}
     it { should compile.and_raise_error(/is not supported on operatingsystem/) }
   end
 end
