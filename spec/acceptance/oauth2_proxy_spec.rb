@@ -1,9 +1,22 @@
 require 'spec_helper_acceptance'
 
 describe 'oauth2_proxy class', :order => :defined do
+  case fact('osfamily')
+  when 'RedHat'
+    provider = 'systemd'
+    systemd_path = '/usr/lib/systemd/system'
+    user_shell = '/sbin/nologin'
+  when 'Debian'
+    provider = 'debian'
+    systemd_path = '/etc/systemd/system'
+    user_shell = '/usr/sbin/nologin'
+  end
+
   describe 'running puppet code' do
     pp = <<-EOS
-      include ::oauth2_proxy
+      class { 'oauth2_proxy':
+        provider => #{provider}
+      }
 
       ::oauth2_proxy::instance { 'proxy1':
         config => {
@@ -47,7 +60,7 @@ describe 'oauth2_proxy class', :order => :defined do
   describe user('oauth2') do
     it { should exist }
     it { should have_home_directory '/' }
-    it { should have_login_shell '/sbin/nologin' }
+    it { should have_login_shell user_shell }
     it { should belong_to_group 'oauth2' }
   end
 
@@ -73,7 +86,7 @@ client_id = "1234"
 client_secret = "abcd"
 cookie_secret = "1234"
 email_domains = [
-  "*"
+  "*",
 ]
 github_org = "foo"
 http_address = "127.0.0.1:4180"
@@ -82,7 +95,7 @@ pass_host_header = true
 provider = "github"
 redirect_url = "https://foo.example.org/oauth2/callback"
 upstreams = [
-  "http://127.0.0.1:3000"
+  "http://127.0.0.1:3000",
 ]
       EOS
     end
@@ -102,7 +115,7 @@ http_address = "127.0.0.1:4182"
 
 
   %w[ proxy1 proxy2 ].each do | name |
-    describe service("oauth2_proxy-#{name}") do
+    describe service("oauth2_proxy@#{name}") do
       it { should be_enabled }
       it { should be_running }
     end

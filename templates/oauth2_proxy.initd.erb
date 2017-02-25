@@ -1,12 +1,12 @@
 #! /bin/sh
 ### BEGIN INIT INFO
-# Provides:          oauth2_proxy-<%= @title %>
+# Provides:          oauth2_proxy@<%= @title %>
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
-# Default-Start:     2 3 4 5
-# Default-Stop:      0 1 6
-# Short-Description: oauth2_proxy-<%= @title %>
-# Description:       Runs oauth2_proxy-<%= @title %>
+# Default-Start:     2345
+# Default-Stop:      016
+# Short-Description: oauth2_proxy@<%= @title %>
+# Description:       Runs oauth2_proxy@<%= @title %>
 #
 ### END INIT INFO
 
@@ -17,8 +17,8 @@
 
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DESC="oauth2_proxy-<%= @title %>"
-NAME="oauth2_proxy-<%= @title %>"
+DESC="oauth2_proxy@<%= @title %>"
+NAME="oauth2_proxy@<%= @title %>"
 DAEMON="<%= scope['::oauth2_proxy::install_root'] %>/bin/oauth2_proxy"
 PIDFILE=/var/run/$NAME.pid
 LOGFILE=/var/log/oauth2_proxy/<%= @title %>.log
@@ -75,7 +75,7 @@ case "$1" in
     stop
     ;;
   status)
-    status_of_proc "$DAEMON" "$NAME"
+    status_of_proc -p "$PIDFILE" "$DAEMON" "$NAME"
     exit $?
     ;;
   restart|force-reload)

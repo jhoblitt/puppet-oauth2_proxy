@@ -2,14 +2,13 @@
 #
 # This class should be considered private.
 #
-#
 class oauth2_proxy::params {
   $manage_user      = true
   $user             = 'oauth2'
   $manage_group     = true
   $group            = $user
   $install_root     = '/opt/oauth2_proxy'
-  $service_template = 'oauth2_proxy.service.erb'
+  $service_template = 'oauth2_proxy@.service.erb'
   $manage_service   = true
   $provider         = 'systemd'
 
@@ -22,12 +21,14 @@ class oauth2_proxy::params {
   # but it has only been tested on el7
   case $::osfamily {
     'RedHat': {
-      $systemd_path = '/usr/lib/systemd/system'
+#      $provider = 'systemd'
       $shell = '/sbin/nologin'
+      $systemd_path = '/usr/lib/systemd/system'
     }
     'Debian': {
-      $systemd_path = '/etc/systemd/system'
+#      $provider = 'debian'
       $shell = '/usr/sbin/nologin'
+      $systemd_path = '/etc/systemd/system'
     }
     default: {
       fail("Module ${module_name} is not supported on operatingsystem ${::operatingsystem}")

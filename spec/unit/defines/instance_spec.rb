@@ -13,7 +13,7 @@ describe 'oauth2_proxy::instance', :type => :define do
         context '(unset)' do
           let(:params) {{ :config => {} }}
           it do
-            should contain_service("oauth2_proxy-#{title}").with(
+            should contain_service("oauth2_proxy@#{title}").with(
               :ensure => 'running',
               :enable => true
             )
@@ -22,12 +22,12 @@ describe 'oauth2_proxy::instance', :type => :define do
 
         context 'true' do
           let(:params) {{ :config => {}, :manage_service => true }}
-          it { should contain_service("oauth2_proxy-#{title}") }
+          it { should contain_service("oauth2_proxy@#{title}") }
         end
 
         context 'false' do
           let(:params) {{ :config => {}, :manage_service => false }}
-          it { should_not contain_service("oauth2_proxy-#{title}") }
+          it { should_not contain_service("oauth2_proxy@#{title}") }
         end
 
         context 'foo' do
@@ -95,7 +95,7 @@ describe 'oauth2_proxy::instance', :type => :define do
         context '(unset)' do
           let(:params) {{ :config => {} }}
           it do
-            should contain_service("oauth2_proxy-#{title}").with(
+            should contain_service("oauth2_proxy@#{title}").with(
               :ensure => 'running',
               :enable => true
             )
@@ -104,12 +104,12 @@ describe 'oauth2_proxy::instance', :type => :define do
 
         context 'true' do
           let(:params) {{ :config => {}, :manage_service => true }}
-          it { should contain_service("oauth2_proxy-#{title}") }
+          it { should contain_service("oauth2_proxy@#{title}") }
         end
 
         context 'false' do
           let(:params) {{ :config => {}, :manage_service => false }}
-          it { should_not contain_service("oauth2_proxy-#{title}") }
+          it { should_not contain_service("oauth2_proxy@#{title}") }
         end
 
         context 'foo' do

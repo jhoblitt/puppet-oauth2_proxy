@@ -43,7 +43,7 @@ class oauth2_proxy::install {
     mode   => '0644',
   }
 
-  file { '/var/log/oauth2_proxy/':
+  file { '/var/log/oauth2_proxy':
     ensure => directory,
     owner  => $::oauth2_proxy::user,
     group  => $::oauth2_proxy::group,
