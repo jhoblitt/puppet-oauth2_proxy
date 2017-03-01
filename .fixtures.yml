@@ -5,5 +5,6 @@ fixtures:
       ref:  '4.6.0'
     archive:
       repo: 'https://github.com/voxpupuli/puppet-archive.git'
+      ref: 'v1.3.0'
   symlinks:
     oauth2_proxy: "#{source_dir}"
