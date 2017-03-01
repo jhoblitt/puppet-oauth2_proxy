@@ -6,4 +6,3 @@ HOSTS:
     docker_preserve_image: true
 CONFIG:
   type: foss
-  log_level: debug
