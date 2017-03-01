@@ -5,7 +5,7 @@ describe 'oauth2_proxy::instance', :type => :define do
     let :pre_condition do
       'include ::oauth2_proxy'
     end
-    let(:facts) {{ :osfamily => 'RedHat', :architecture => 'x86_64', :os => { :family => 'RedHat' } }}
+    let(:facts) {{ :osfamily => 'RedHat', :architecture => 'x86_64', :os => { :family => 'RedHat' }, :operatingsystem => 'CentOS' }}
     let(:title) { 'proxy1' }
 
     context 'parameters' do
@@ -87,7 +87,7 @@ describe 'oauth2_proxy::instance', :type => :define do
     let :pre_condition do
       'include ::oauth2_proxy'
     end
-    let(:facts) {{ :osfamily => 'Debian', :architecture => 'amd64', :os => { :family => 'Debian' } }}
+    let(:facts) {{ :osfamily => 'Debian', :architecture => 'amd64', :os => { :family => 'Debian' }, :operatingsystem => 'ubuntu' }}
     let(:title) { 'proxy1' }
 
     context 'parameters' do
