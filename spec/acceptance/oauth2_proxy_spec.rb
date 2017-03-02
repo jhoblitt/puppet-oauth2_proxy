@@ -14,9 +14,7 @@ describe 'oauth2_proxy class', :order => :defined do
 
   describe 'running puppet code' do
     pp = <<-EOS
-      class { 'oauth2_proxy':
-        provider => #{provider}
-      }
+      include ::oauth2_proxy
 
       ::oauth2_proxy::instance { 'proxy1':
         config => {
@@ -31,7 +29,8 @@ describe 'oauth2_proxy class', :order => :defined do
           provider          => 'github',
           redirect_url      => 'https://foo.example.org/oauth2/callback',
           email_domains     => [ '*' ],
-        }
+        },
+        provider => #{provider}
       }
 
       ::oauth2_proxy::instance { 'proxy2':
@@ -47,7 +46,8 @@ describe 'oauth2_proxy class', :order => :defined do
           provider          => 'github',
           redirect_url      => 'https://foo.example.org/oauth2/callback',
           email_domains     => [ '*' ],
-        }
+        },
+        provider => #{provider}
       }
     EOS
 
