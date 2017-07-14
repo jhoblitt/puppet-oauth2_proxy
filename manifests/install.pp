@@ -10,6 +10,7 @@ class oauth2_proxy::install {
   $tarball = regsubst($::oauth2_proxy::source, '^.*/([^/]+)$', '\1')
   $base    = regsubst($tarball, '(\w+).tar.gz$', '\1')
 
+  include ::archive
   archive { $tarball:
     ensure        => present,
     source        => $::oauth2_proxy::source,
@@ -39,14 +40,26 @@ class oauth2_proxy::install {
     ensure => directory,
     owner  => $::oauth2_proxy::user,
     group  => $::oauth2_proxy::group,
-    mode   => '0755',
+    mode   => '0644',
   }
 
-  file { '/usr/lib/systemd/system/oauth2_proxy@.service':
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template("${module_name}/oauth2_proxy@.service.erb"),
+  file { '/var/log/oauth2_proxy':
+    ensure => directory,
+    owner  => $::oauth2_proxy::user,
+    group  => $::oauth2_proxy::group,
+    mode   => '0644'
+  }
+
+  case $::oauth2_proxy::provider {
+    'systemd': {
+      file { "${::oauth2_proxy::systemd_path}/oauth2_proxy@.service":
+        ensure  => file,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template("${module_name}/oauth2_proxy@.service.erb"),
+      }
+    }
+    default: {}
   }
 }

@@ -29,6 +29,7 @@ group :beaker do
   gem 'beaker-rspec',             :require => false
   gem 'pry',                      :require => false
   gem 'puppet-blacksmith',        :require => false
+  gem 'vagrant-wrapper',          :require => false
 end
 
 # vim:ft=ruby

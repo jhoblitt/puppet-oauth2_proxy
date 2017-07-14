@@ -1,0 +1,89 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          oauth2_proxy@<%= @title %>
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2345
+# Default-Stop:      016
+# Short-Description: oauth2_proxy@<%= @title %>
+# Description:       Runs oauth2_proxy@<%= @title %>
+#
+### END INIT INFO
+
+# Author: Andy Royle <ajroyle@gmail.com>
+#
+
+# Do NOT "set -e"
+
+# PATH should only include /usr/* if it runs after the mountnfs.sh script
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DESC="oauth2_proxy@<%= @title %>"
+NAME="oauth2_proxy@<%= @title %>"
+DAEMON="<%= scope['::oauth2_proxy::install_root'] %>/bin/oauth2_proxy"
+PIDFILE=/var/run/$NAME.pid
+LOGFILE=/var/log/oauth2_proxy/<%= @title %>.log
+SCRIPTNAME=/etc/init.d/$NAME
+DAEMON_ARGS="--config=/etc/oauth2_proxy/<%= @title %>.conf"
+
+# Read configuration variable file if it is present
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+
+. /lib/init/vars.sh
+
+. /lib/lsb/init-functions
+
+# Exit if the package is not installed
+if ! [ -x "$DAEMON" ]; then
+  echo "'${DAEMON}' does not exist or is not executable" >&2
+  exit 5
+fi
+
+
+start() {
+  log_daemon_msg "Starting $DESC"
+
+  # Return
+  #   0 if daemon has been started
+  #   1 if daemon was already running
+  #   2 if daemon could not be started
+  start-stop-daemon --start --quiet --pidfile $PIDFILE --chuid <%= scope['::oauth2_proxy::user'] %>:<%= scope['::oauth2_proxy::group'] %> --background \
+                    --make-pidfile --startas /bin/bash -- -c "exec $DAEMON $DAEMON_ARGS &>> $LOGFILE"
+  RETVAL=$?
+  log_end_msg $RETVAL
+  return $RETVAL
+}
+
+stop() {
+  log_daemon_msg "Stopping $DESC"
+  # Return
+  #   0 if daemon has been stopped
+  #   1 if daemon was already stopped
+  #   2 if daemon could not be stopped
+  #   other if a failure occurred
+  start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE
+  RETVAL=$?
+  # Many daemons don't delete their pidfiles when they exit.
+  log_end_msg $RETVAL
+  return $RETVAL
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    status_of_proc -p "$PIDFILE" "$DAEMON" "$NAME"
+    exit $?
+    ;;
+  restart|force-reload)
+    stop
+    start
+    ;;
+  *)
+  echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}" >&2
+  exit 3
+  ;;
+esac

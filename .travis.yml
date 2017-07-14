@@ -6,19 +6,52 @@ rvm:
   - 2.0
   - 2.1
   - 2.2
+  - 2.3.1
 env:
   - PUPPET_GEM_VERSION="~> 3.7"
   - PUPPET_GEM_VERSION="~> 4.0"
 matrix:
   include:
-    - rvm: '2.1'
+    - rvm: '2.2'
       sudo: required
       services: docker
-      env: BEAKER_set="centos-7-docker"
+      env:
+        - PUPPET_GEM_VERSION="~> 4.0"
+        - BEAKER_set="centos-7-docker"
+      script: bundle exec rake beaker
+      bundler_args: --without development
+    - rvm: '2.2'
+      sudo: required
+      services: docker
+      env:
+        - PUPPET_GEM_VERSION="~> 4.0"
+        - BEAKER_set="ubuntu-14-docker"
+      script: bundle exec rake beaker
+      bundler_args: --without development
+    - rvm: '2.3.1'
+      sudo: required
+      services: docker
+      env:
+        - PUPPET_GEM_VERSION="~> 4.0"
+        - BEAKER_set="centos-7-docker"
+      script: bundle exec rake beaker
+      bundler_args: --without development
+    - rvm: '2.3.1'
+      sudo: required
+      services: docker
+      env:
+        - PUPPET_GEM_VERSION="~> 4.0"
+        - BEAKER_set="ubuntu-14-docker"
       script: bundle exec rake beaker
       bundler_args: --without development
   exclude:
+    - rvm: 1.9.3
+      env: PUPPET_GEM_VERSION="~> 4.0"
+    - rvm: 2.0
+      env: PUPPET_GEM_VERSION="~> 4.0"
     - rvm: 2.2
+      env: PUPPET_GEM_VERSION="~> 3.7"
+    - rvm: 2.3.1
       env: PUPPET_GEM_VERSION="~> 3.7"
   fast_finish: true
 notifications:

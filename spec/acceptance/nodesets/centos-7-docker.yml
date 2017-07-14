@@ -6,4 +6,3 @@ HOSTS:
     dockerfile: spec/acceptance/nodesets/centos-7-docker.Dockerfile
 CONFIG:
   type: foss
-  log_level: debug
