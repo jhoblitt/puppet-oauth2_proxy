@@ -2,8 +2,8 @@ sudo: false
 language: ruby
 bundler_args: --without beaker
 rvm:
-  - 2.2
-  - 2.3.1
+  - '2.2'
+  - '2.3.1'
 env:
   - PUPPET_GEM_VERSION="~> 3.7"
   - PUPPET_GEM_VERSION="~> 4.0"
