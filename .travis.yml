@@ -6,7 +6,6 @@ rvm:
   - '2.3'
   - '2.4'
 env:
-  - PUPPET_GEM_VERSION="~> 3.7"
   - PUPPET_GEM_VERSION="~> 4.0"
 matrix:
   include:
@@ -42,11 +41,6 @@ matrix:
         - BEAKER_set="ubuntu-14-docker"
       script: bundle exec rake beaker
       bundler_args: --without development
-  exclude:
-    - rvm: '2.2'
-      env: PUPPET_GEM_VERSION="~> 3.7"
-    - rvm: '2.3'
-      env: PUPPET_GEM_VERSION="~> 3.7"
   fast_finish: true
 notifications:
   email: false
