@@ -8,6 +8,7 @@ class oauth2_proxy::params {
   $manage_group     = true
   $group            = $user
   $install_root     = '/opt/oauth2_proxy'
+  $manage_install   = true
   $service_template = 'oauth2_proxy@.service.erb'
   $manage_service   = true
   $provider         = 'systemd'
@@ -16,6 +17,13 @@ class oauth2_proxy::params {
   $tarball  = "oauth2_proxy-${version}.linux-amd64.go1.6.tar.gz"
   $source   = "https://github.com/bitly/oauth2_proxy/releases/download/v${version}/${tarball}"
   $checksum = '7a74b361f9edda0400d02602eacd70596d85b453'
+
+  $command_path = "$install_root/bin/oauth2_proxy"
+  $config_dir   = '/etc/oauth2_proxy'
+  $config_path  = "$config_dir/$title.conf"
+  $data_dir     = '/var/lib/oauth2_proxy'
+  $log_dir      = '/var/log/oauth2_proxy'
+  $log_path     = "$log_dir/$title.log"
 
   # in theory, this module should work on any linux distro that uses systemd
   # but it has only been tested on el7
@@ -43,4 +51,5 @@ class oauth2_proxy::params {
       fail("Module ${module_name} is not supported on architecture ${::architecture}")
     }
   }
+
 }
