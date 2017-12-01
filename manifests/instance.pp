@@ -8,7 +8,15 @@ define oauth2_proxy::instance(
   validate_bool($manage_service)
   validate_hash($config)
 
-  file { "/etc/oauth2_proxy/${title}.conf":
+  $_config_path = "${::oauth2_proxy::params::config_dir}/${title}.conf"
+  $_log_path = "${::oauth2_proxy::log_dir}/${title}.log"
+
+  $_group = $::oauth2_proxy::group
+  $_user = $::oauth2_proxy::user
+
+  $_chdir = $::oauth2_proxy::data_dir
+
+  file { $_config_path:
     ensure  => file,
     owner   => $::oauth2_proxy::user,
     group   => $::oauth2_proxy::group,
@@ -16,12 +24,25 @@ define oauth2_proxy::instance(
     content => template("${module_name}/oauth2_proxy.conf.erb"),
   }
 
-  file { "/var/log/oauth2_proxy/${title}.log":
+  file { $_log_path:
     ensure => file,
     owner  => $::oauth2_proxy::user,
     group  => $::oauth2_proxy::group,
     mode   => '0644',
   }
+
+  file { $_chdir:
+    ensure => directory,
+    owner  => $_user,
+    group  => $_group,
+    mode   => '0755',
+  }
+
+  $_command = join([
+    "${::oauth2_proxy::command_path} ",
+    "--config=", $_config_path,
+  ])
+
 
   case $provider {
     'debian': {
