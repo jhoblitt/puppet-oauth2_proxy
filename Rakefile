@@ -30,7 +30,6 @@ namespace :travis do
 end
 
 task :default => [
-  'travis:lint',
   :validate,
   :lint,
   :spec,
