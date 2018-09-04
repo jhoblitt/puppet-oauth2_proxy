@@ -26,7 +26,12 @@ end
 group :beaker do
   gem 'serverspec',               :require => false
   gem 'beaker',                   :require => false
+  gem 'beaker-puppet',            :require => false
+  gem 'beaker-docker',            :require => false
   gem 'beaker-rspec',             :require => false
+  gem 'beaker-hostgenerator', '>= 1.1.10',  :require => false
+  gem 'beaker-puppet_install_helper',       :require => false
+  gem 'beaker-module_install_helper',       :require => false
   gem 'pry',                      :require => false
   gem 'puppet-blacksmith',        :require => false
   gem 'vagrant-wrapper',          :require => false
