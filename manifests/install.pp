@@ -18,7 +18,7 @@ class oauth2_proxy::install {
     extract       => true,
     extract_path  => $::oauth2_proxy::install_root,
     checksum      => $::oauth2_proxy::checksum,
-    checksum_type => 'sha1',
+    checksum_type => $::oauth2_proxy::checksum_type,
     user          => $::oauth2_proxy::user,
   }
 

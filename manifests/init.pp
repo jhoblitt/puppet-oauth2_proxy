@@ -1,16 +1,17 @@
 # == Class: oauth2_proxy
 #
 class oauth2_proxy(
-  $user         = $::oauth2_proxy::params::user,
-  $manage_user  = $::oauth2_proxy::params::manage_user,
-  $group        = $::oauth2_proxy::params::group,
-  $manage_group = $::oauth2_proxy::params::manage_group,
-  $install_root = $::oauth2_proxy::params::install_root,
-  $source       = $::oauth2_proxy::params::source,
-  $checksum     = $::oauth2_proxy::params::checksum,
-  $systemd_path = $::oauth2_proxy::params::systemd_path,
-  $shell        = $::oauth2_proxy::params::shell,
-  $provider     = $::oauth2_proxy::params::provider,
+  $user          = $::oauth2_proxy::params::user,
+  $manage_user   = $::oauth2_proxy::params::manage_user,
+  $group         = $::oauth2_proxy::params::group,
+  $manage_group  = $::oauth2_proxy::params::manage_group,
+  $install_root  = $::oauth2_proxy::params::install_root,
+  $source        = $::oauth2_proxy::params::source,
+  $checksum      = $::oauth2_proxy::params::checksum,
+  $checksum_type = $::oauth2_proxy::params::checksum_type,
+  $systemd_path  = $::oauth2_proxy::params::systemd_path,
+  $shell         = $::oauth2_proxy::params::shell,
+  $provider      = $::oauth2_proxy::params::provider,
 ) inherits oauth2_proxy::params {
   validate_string($user)
   validate_bool($manage_user)
