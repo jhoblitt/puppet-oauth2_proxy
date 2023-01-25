@@ -1,10 +1,10 @@
 [Unit]
-Description=OAuth2 Proxy
+Description=OAuth2 Proxy %i
 
 [Service]
 User=<%= scope['::oauth2_proxy::user'] %>
 Group=<%= scope['::oauth2_proxy::group'] %>
-ExecStart=<%= scope['::oauth2_proxy::install_root'] %>/bin/oauth2_proxy --config=/etc/oauth2_proxy/%i.conf
+ExecStart=<%= scope['::oauth2_proxy::install_root'] %>/<%= scope['::oauth2_proxy::binary_path'] %> --config=/etc/oauth2_proxy/%i.conf
 Restart=always
 
 [Install]

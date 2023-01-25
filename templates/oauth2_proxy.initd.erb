@@ -19,7 +19,7 @@
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="oauth2_proxy@<%= @title %>"
 NAME="oauth2_proxy@<%= @title %>"
-DAEMON="<%= scope['::oauth2_proxy::install_root'] %>/bin/oauth2_proxy"
+DAEMON="<%= scope['::oauth2_proxy::install_root'] %>/<%= scope['::oauth2_proxy::binary_path'] %>"
 PIDFILE=/var/run/$NAME.pid
 LOGFILE=/var/log/oauth2_proxy/<%= @title %>.log
 SCRIPTNAME=/etc/init.d/$NAME
