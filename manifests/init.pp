@@ -7,6 +7,7 @@ class oauth2_proxy(
   $manage_group = $::oauth2_proxy::params::manage_group,
   $install_root = $::oauth2_proxy::params::install_root,
   $source       = $::oauth2_proxy::params::source,
+  $binary_path  = $::oauth2_proxy::params::binary_path,
   $checksum     = $::oauth2_proxy::params::checksum,
   $systemd_path = $::oauth2_proxy::params::systemd_path,
   $shell        = $::oauth2_proxy::params::shell,

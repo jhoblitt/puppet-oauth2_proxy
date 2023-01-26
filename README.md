@@ -164,6 +164,12 @@ to be in `tar.gz` format.
 
 The sha1 format checksum of the `source` file.
 
+##### `binary_path`
+
+`String` defaults to: `bin/oauth2_proxy`
+
+Path to binary execution filename in archive.
+
 ### Defines
 
 #### `oauth2_proxy::instance`

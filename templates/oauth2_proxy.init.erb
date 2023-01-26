@@ -9,8 +9,8 @@ respawn limit 10 5
 console log
 
 script
-  exec start-stop-daemon --start --make-pidfile --pidfile /var/run/oauth2_proxy@<%= @title %>.pid --chuid <%= scope['::oauth2_proxy::user'] %>:<%= scope['::oauth2_proxy::group'] %> --chdir /opt/oauth2_proxy --startas /bin/bash -- -c "exec <%= scope['::oauth2_proxy::install_root'] %>/bin/oauth2_proxy -config="/etc/oauth2_proxy/<%= @title %>.conf" &>> /var/log/oauth2_proxy/<%= @title %>.log"
-  #exec <%= scope['::oauth2_proxy::install_root'] %>/bin/oauth2_proxy -config="/etc/oauth2_proxy/<%= @title %>.conf" &>> /var/log/oauth2_proxy/<%= @title %>.log
+  exec start-stop-daemon --start --make-pidfile --pidfile /var/run/oauth2_proxy@<%= @title %>.pid --chuid <%= scope['::oauth2_proxy::user'] %>:<%= scope['::oauth2_proxy::group'] %> --chdir /opt/oauth2_proxy --startas /bin/bash -- -c "exec <%= scope['::oauth2_proxy::install_root'] %>/<%= scope['::oauth2_proxy::binary_path'] %> -config="/etc/oauth2_proxy/<%= @title %>.conf" &>> /var/log/oauth2_proxy/<%= @title %>.log"
+  #exec <%= scope['::oauth2_proxy::install_root'] %>/<%= scope['::oauth2_proxy::binary_path'] %> -config="/etc/oauth2_proxy/<%= @title %>.conf" &>> /var/log/oauth2_proxy/<%= @title %>.log
 end script
 
 pre-start script
